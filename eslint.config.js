@@ -1,5 +1,5 @@
 import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint-plugin';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
   {
@@ -20,7 +20,7 @@ export default [
       'prefer-const': 'error',
       'no-debugger': 'error',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-explicit-any': 'off'
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ];
