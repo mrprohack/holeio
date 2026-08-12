@@ -88,4 +88,13 @@ export function generateWorld(seed = 1): WorldDefinition {
         district: district.kind,
         x: Number(x.toFixed(3)),
         z: Number(z.toFixed(3)),
-        radius: Number%ÄI3é,„FÑÎÑ—P–ÄL@«9î0¿
+        radius: Number((base.radius * scale).toFixed(3)),
+        mass: Number((base.mass * scale).toFixed(3)),
+        value: Math.round(base.value * scale),
+        height: Number((base.height * scale).toFixed(3)),
+        hue: Math.floor(random() * 360),
+      });
+    }
+  }
+  return { arenaHalfSize, districts, objects };
+}
