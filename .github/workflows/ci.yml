@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'feat/**'
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Check browser bundle limits
+        shell: bash
+        run: |
+          set -euo pipefail
+          bytes=$(du -sb dist | cut -f1)
+          files=$(find dist -type f | wc -l | tr -d ' ')
+          echo "dist bytes: $bytes"
+          echo "dist files: $files"
+          test "$bytes" -le 52428800
+          test "$files" -le 1500
